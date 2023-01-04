@@ -22,7 +22,8 @@ t =
                         Y: [1320×1140 double]
                    bregma: [540 44 570]
 
->> aratopdown.draw_top_down_ccf(t); %Makes the plot
+>> aratopdown.draw_top_down_ccf(t); %Makes a static plot with labels
+>> aratopdown.area_highlighter(t) % Makes a nice interactive plot 
 ```
 
 ## Requirements for building the top-down view from the Allen CCF volume
