@@ -4,8 +4,11 @@
 This package provides code to generate a top-down view of the Allen Atlas from the full Common Coordinate Framework (CCF) and visualize it interactively in stereotaxic coordinates expressed in mm with respect to bregma.
 There are two functions for plotting the view as well as all code needed to generate the plots from scratch using the CCF.
 
+<img src="./images/area_highlighter.jpg">
+
 ## Installation
-If installing from a Zip archive or cloned from GiHub, simply add the `code` directory to your path. 
+The easiest way to to install and stay up to date is directly via MATLAB: Go to "APPS" in the ribbon then select "Get More Apps" and search for AllenAtlasTopDown to install.
+Alternatively you can download the Zip archive or clone the repo then add the `code` directory to your MATLAB path.
 No need to "Add with Subfolders". 
 
 ## Usage
