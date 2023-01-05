@@ -1,4 +1,6 @@
 # Allen Atlas Top-Down Viewer
+[![View AllenAtlasTopDown on File Exchange](https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg)](https://uk.mathworks.com/matlabcentral/fileexchange/122877-allenatlastopdown)
+
 This package provides code to generate a top-down view of the Allen Atlas from the full Common Coordinate Framework (CCF) and visualize it interactively in stereotaxic coordinates expressed in mm with respect to bregma.
 There are two functions for plotting the view as well as all code needed to generate the plots from scratch using the CCF.
 
