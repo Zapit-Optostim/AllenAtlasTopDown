@@ -60,7 +60,7 @@ function area_highlighter(atlas_data)
     ylim([-8,4])
 
     xticks(ax, -5:grid_spacing:5);
-    yticks(ax, -5:grid_spacing:5);
+    yticks(ax, -8:grid_spacing:5);
 
     t=title('Top Down ARA');
 
