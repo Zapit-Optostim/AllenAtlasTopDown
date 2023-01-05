@@ -1,12 +1,12 @@
-function  draw_top_down_ccf(plt_data)
+function  draw_top_down_ccf(atlas_data)
     % Draw a top-down view of the Allen Atlas in coords from bregma
     %
-    % function nte.utils.draw_top_down_ccf(plt_data)
+    % function nte.utils.draw_top_down_ccf(atlas_data)
     %
     % Inputs [Optional]
-    % plt_data - output of aratopdown.prep_data_for_top_down
+    % atlas_data - output of aratopdown.prep_data_for_top_down
     %
-    % Supplying plt_data will speed up appearance of the figure.
+    % Supplying atlas_data will speed up appearance of the figure.
     %
     % Example function calls:
     % td_data = aratopdown.prep_data_for_top_down
@@ -18,8 +18,9 @@ function  draw_top_down_ccf(plt_data)
     % Rob Campbell - SWC 2023
 
     if nargin<1
-        plt_data = aratopdown.prep_data_for_top_down;
-    end 
+        load('atlas_data')
+    end
+
     
     %% Draw top-down cortical areas (in mm)
 
@@ -42,16 +43,22 @@ function  draw_top_down_ccf(plt_data)
     yticks(ax, -5:grid_spacing:5);
 
     % Draw cortical boundaries
+
+    % Whole brain
+    cellfun(@(x) cellfun(@(x) plot(x(:,2),x(:,1), 'color', [0.5,0.5,0.5]),x,'uni',false), ...
+        {atlas_data.whole_brain.boundaries_stereotax},'uni', false);
+
+    % Cortical broundaries
     cellfun(@(x) cellfun(@(x) plot(x(:,2),x(:,1),'color',brain_color),x,'uni',false), ...
-        {plt_data.dorsal_cortical_areas.boundaries_stereotax},'uni', false);
+        {atlas_data.dorsal_brain_areas.boundaries_stereotax},'uni', false);
 
     % Write area labels (left hemisphere)
     cellfun(@(x,y) text('Position',fliplr(mean(x{1}+0.05,1)),'String',y, 'Color', [0,0,0.5]), ...
-        {plt_data.dorsal_cortical_areas.boundaries_stereotax}, ...
-        {plt_data.dorsal_cortical_areas.names});
+        {atlas_data.dorsal_brain_areas.boundaries_stereotax}, ...
+        {atlas_data.dorsal_brain_areas.names});
 
     cellfun(@(x,y) plot(mean(x{1}(:,2)),mean(x{1}(:,1)),'.b', 'MarkerSize', 10), ...
-        {plt_data.dorsal_cortical_areas.boundaries_stereotax});
+        {atlas_data.dorsal_brain_areas.boundaries_stereotax});
 
     % Plot bregma
     plot(0, 0, 'or', 'MarkerFaceColor', bregma_color, 'MarkerSize', 10);

@@ -1,4 +1,4 @@
-function area_highlighter(data)
+function area_highlighter(atlas_data)
     % Highlight cortical area under mouse in top-down view. Coords in mm from bregma
     %
     % function area_highlighter(data)
@@ -16,15 +16,14 @@ function area_highlighter(data)
     % Based on code kindly provided by Andy Peters (Oxford, DPAG)
     % See fork of Andy's projet here: https://github.com/raacampbell/neuropixels_trajectory_explorer
     
-    % Make meshes to allow the annotation map to be plotted in mm also (these are large so we don't save them)
-    % NOTE! these lines matter and so we might want a loader function that does this.
-    % The X and Y meshes are what place the atlas image into the same space as the brain area
-    % outlines.
+    if nargin<1
+        load('atlas_data')
+    end
 
-    [X ,Y] = meshgrid(1:size(data.top_down_annotation,2),1:size(data.top_down_annotation,1));
-    data.X = (X-data.bregma(3))/100;
-    data.Y = (data.bregma(1)-Y)/100;
-
+    % Make meshes to allow the annotation map to be plotted in mm
+    [X,Y] = aratopdown.atlas.buildmeshes(atlas_data);
+    atlas_data.top_down_annotation.X = X;
+    atlas_data.top_down_annotation.Y = Y;
 
     % Plot settings
     brain_color = 'k';
@@ -58,24 +57,24 @@ function area_highlighter(data)
     ylabel('AP [mm from bregma]')
 
     xlim([-5.5,5.5])
-    ylim([-5,3.75])
+    ylim([-8,4])
 
     xticks(ax, -5:grid_spacing:5);
     yticks(ax, -5:grid_spacing:5);
 
-    t=title('');
+    t=title('Top Down ARA');
 
     % Draw cortical boundaries
-    cortical_areas = data.dorsal_cortical_areas; % For ease
+    brain_areas = atlas_data.dorsal_brain_areas; % For ease
     cellfun(@(x) cellfun(@(x) plot(x(:,2),x(:,1),'color',brain_color),x,'uni',false), ...
-        {cortical_areas.boundaries_stereotax},'uni', false);
+        {brain_areas.boundaries_stereotax},'uni', false);
 
 
     % Plot bregma
     p_bregma = plot(0, 0, 'ok', 'MarkerFaceColor', bregma_color, 'MarkerSize', 10);
 
     % Plot ticks along axes that will move with mouse cursor
-    p_ml_tick = plot([0,0],[-5,-4.5],'-r','LineWidth',3);
+    p_ml_tick = plot([0,0],[-8,-7.5],'-r','LineWidth',3);
     p_ap_tick = plot([-5.5,-5],[0,0],'-r','LineWidth',3);
     p_ml_tick.Visible='off';
     p_ap_tick.Visible='off';
@@ -89,19 +88,19 @@ function area_highlighter(data)
 
 
         % Find brain area index
-        [~,indX]=min(abs(data.X(1,:)-X));
-        [~,indY]=min(abs(data.Y(:,1)-Y));
-        t_ind = data.top_down_annotation(indY,indX);
-        f =find([cortical_areas.area_index]==t_ind);
+        [~,indX]=min(abs(atlas_data.top_down_annotation.X(1,:)-X));
+        [~,indY]=min(abs(atlas_data.top_down_annotation.Y(:,1)-Y));
+        t_ind = atlas_data.top_down_annotation.data(indY,indX);
+        f =find([brain_areas.area_index]==t_ind);
         delete(findall(gca,'type','patch'))
         if isempty(f)
-            area_name = 'Out of cortex';
+            area_name = '';
             fig.Pointer = 'arrow';
             p_ml_tick.Visible='off';
             p_ap_tick.Visible='off';
         else
-            area_name = cortical_areas(f).names{1};
-            b = cortical_areas(f).boundaries_stereotax;
+            area_name = [', ',brain_areas(f).names{1}];
+            b = brain_areas(f).boundaries_stereotax;
 
             if X<0 | length(b)==1
                 b = b{1};
@@ -117,7 +116,7 @@ function area_highlighter(data)
             p_ap_tick.Visible='on';
         end
 
-        t.String = sprintf('ML=%0.2f mm, AP=%0.2f mmm, %s\n', X, Y, area_name);
+        t.String = sprintf('ML=%0.2f mm, AP=%0.2f mm%s\n', X, Y, area_name);
     end
 
 end

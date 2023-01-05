@@ -1,32 +1,47 @@
 # Allen Atlas Top-Down Viewer
-This package provides code to generate a top-down view of the Allen Atlas from the full Common Coordinate Framework (CCF) and visualize it interactively in coordinates expressed in mm with respect to bregma.
-The top-down view can be exported in a concise format that is easy to include in other projects.
+This package provides code to generate a top-down view of the Allen Atlas from the full Common Coordinate Framework (CCF) and visualize it interactively in stereotaxic coordinates expressed in mm with respect to bregma.
+There are two functions for plotting the view as well as all code needed to generate the plots from scratch using the CCF.
 
 ## Installation
 If installing from a Zip archive or cloned from GiHub, simply add the `code` directory to your path. 
 No need to "Add with Subfolders". 
 
-## Example
+## Usage
+To launch an interactive top-down viewer:
+```matlab
+aratopdown.area_highlighter
+```
+
+To show a static image with labels:
+```matlab
+aratopdown.draw_top_down_ccf
+```
+
+## To modify details of the plotted areas
+The area borders are generated from the full CCF volume.
+Following installation of the requirements described below, the borders can be re-generated as follows.
 ```matlab
 
->> t = aratopdown.build_topdown
+>> t = aratopdown.atlas.build_topdown
 
 t = 
 
   struct with fields:
 
-    dorsal_cortical_areas: [34×1 struct]
-               plot_areas: [34×1 uint16]
-      top_down_annotation: [1320×1140 uint16]
-                        X: [1320×1140 double]
-                        Y: [1320×1140 double]
-                   bregma: [540 44 570]
+                 bregma: [540 44 570]
+     dorsal_brain_areas: [43×1 struct]
+            whole_brain: [1×1 struct]
+             plot_areas: [50×1 uint16]
+    top_down_annotation: [1×1 struct]
 
->> aratopdown.draw_top_down_ccf(t); %Makes a static plot with labels
->> aratopdown.area_highlighter(t) % Makes a nice interactive plot 
+% Then plotted as above
+>> aratopdown.draw_top_down_ccf(t);
+>> aratopdown.area_highlighter(t)
 ```
 
 ## Requirements for building the top-down view from the Allen CCF volume
+These requirements are for re-building the area borders and are not needed for running the two
+visualisation functions.
 To build the top-down view you should download the Allen CCF mouse atlas from http://data.cortexlab.net/allenCCF/. 
 You will need the files `structure_tree_safe_2017.csv` and `annotation_volume_10um_by_index.npy`
 These files are a re-formatted version of [the original atlas](http://download.alleninstitute.org/informatics-archive/current-release/mouse_ccf/annotation/ccf_2017/), which has been [processed with this script](https://github.com/cortex-lab/allenCCF/blob/master/setup_utils.m))
