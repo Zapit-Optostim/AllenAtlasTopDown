@@ -10,6 +10,7 @@ There are two functions for plotting the view as well as all code needed to gene
 The easiest way to to install and stay up to date is directly via MATLAB: Go to "APPS" in the ribbon then select "Get More Apps" and search for AllenAtlasTopDown to install.
 Alternatively you can download the Zip archive or clone the repo then add the `code` directory to your MATLAB path.
 No need to "Add with Subfolders". 
+This package requires the [Image Processing Toolbox](https://www.mathworks.com/help/images/index.html).
 
 ## Usage
 To launch an interactive top-down viewer:
