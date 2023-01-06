@@ -157,15 +157,22 @@ function td_data = build_topdown(atlas_volume, structure_tree)
     boundaries_stereotax = boundaries2stereotax({whole_brain.boundaries});
     [whole_brain.boundaries_stereotax] = boundaries_stereotax{:};
 
+    % Generate the X and Y axis scales. These are, for example, the data we would feed to imagesc
+    % as the XData and YData input args to get a properly scaled image. They are also used by
+    % the areahighlighter function to produce the interactive mouse-over effects.
+    bregma = aratopdown.atlas.bregma;
+    xData = ((1:size(top_down_annotation,2)) - bregma(3))/100;
+    yData = (bregma(1) - (1:size(top_down_annotation,1)))/100;
+
     % Make the output structure
     % NOTE! The X and Y matrices are largish so if space is an issue you can delete and re-make as needed using the above three lines
-    td_data.bregma = aratopdown.atlas.bregma;
+    td_data.bregma = bregma;
     td_data.dorsal_brain_areas = dorsal_brain_areas;
     td_data.whole_brain = whole_brain;
     td_data.plot_areas = plot_areas;
     td_data.top_down_annotation.data = top_down_annotation;
-    td_data.top_down_annotation.X = []; % See aratopdown.atlas.buildmeshes
-    td_data.top_down_annotation.Y = []; % See aratopdown.atlas.buildmeshes
+    td_data.top_down_annotation.xData = xData;
+    td_data.top_down_annotation.yData = yData;
 
 
 

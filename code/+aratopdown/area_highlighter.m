@@ -20,11 +20,6 @@ function area_highlighter(atlas_data)
         load('atlas_data')
     end
 
-    % Make meshes to allow the annotation map to be plotted in mm
-    [X,Y] = aratopdown.atlas.buildmeshes(atlas_data);
-    atlas_data.top_down_annotation.X = X;
-    atlas_data.top_down_annotation.Y = Y;
-
     % Plot settings
     brain_color = 'k';
     grid_color = [0.5,0.5,0.5];
@@ -47,10 +42,10 @@ function area_highlighter(atlas_data)
     ax.Toolbar.Visible = 'off';
 
     hold(ax,'on')
-    axis equal
-    grid on
-    box on
-    
+    grid(ax,'on')
+    box(ax,'on')
+    axis(ax,'equal')
+
     ax.GridColor = grid_color;
 
     xlabel('ML [mm from bregma]')
@@ -71,7 +66,7 @@ function area_highlighter(atlas_data)
 
 
     % Plot bregma
-    p_bregma = plot(0, 0, 'ok', 'MarkerFaceColor', bregma_color, 'MarkerSize', 10);
+    p_bregma = plot(0, 0, 'ok', 'MarkerFaceColor', bregma_color, 'MarkerSize', 9);
 
     % Plot ticks along axes that will move with mouse cursor
     p_ml_tick = plot([0,0],[-8,-7.5],'-r','LineWidth',3);
@@ -88,8 +83,8 @@ function area_highlighter(atlas_data)
 
 
         % Find brain area index
-        [~,indX]=min(abs(atlas_data.top_down_annotation.X(1,:)-X));
-        [~,indY]=min(abs(atlas_data.top_down_annotation.Y(:,1)-Y));
+        [~,indX]=min(abs(atlas_data.top_down_annotation.xData-X));
+        [~,indY]=min(abs(atlas_data.top_down_annotation.yData-Y));
         t_ind = atlas_data.top_down_annotation.data(indY,indX);
         f =find([brain_areas.area_index]==t_ind);
         delete(findall(gca,'type','patch'))
