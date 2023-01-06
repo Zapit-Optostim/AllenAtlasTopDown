@@ -67,9 +67,8 @@ Since this will have negligable impact on the top-down the brain is not un-tilte
 
 ## Acknowledgements 
 This code is derived from work done by Andy Peters in his [neuropixels_trajectory_explorer](https://github.com/petersaj/neuropixels_trajectory_explorer). 
-Furthermore, Andy kindly provided a further script that demonstrated how to elegantly get the top-down ARA view in coordinates with respect to bregma.
-Neuropixels trajectory explorer with the Allen CCF mouse atlas or Waxholm rat atlas. See changelog below for history of updates.
+Furthermore, Andy kindly provided an additional script that demonstrated how to elegantly get the top-down ARA view in coordinates with respect to bregma.
 Some text from this README is taken from the neuropixels_trajectory_explorer README.
 
 ## Changelog
-* 2023-01-05: Initial work.
+* 2023-01-05: Initial commit. Minor bugfixes and improvements.
