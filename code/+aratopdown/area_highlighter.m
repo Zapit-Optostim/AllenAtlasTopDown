@@ -32,9 +32,9 @@ function area_highlighter(atlas_data)
     clf(fig)
     fig.Color = 'w';
     fig.ToolBar = 'none';
-    fig.MenuBar='none';
+    fig.MenuBar = 'none';
     fig.Name = 'Brain Area Highlighter';
-    fig.WindowButtonMotionFcn = @pos_reporter;
+    fig.WindowButtonMotionFcn = @highlightAreaUnderCursor_Callback;
 
 
     % Make axes
@@ -57,7 +57,7 @@ function area_highlighter(atlas_data)
     xticks(ax, -5:grid_spacing:5);
     yticks(ax, -8:grid_spacing:5);
 
-    t=title('Top Down ARA');
+    t = title('Top Down ARA');
 
     % Draw cortical boundaries
     brain_areas = atlas_data.dorsal_brain_areas; % For ease
@@ -71,11 +71,11 @@ function area_highlighter(atlas_data)
     % Plot ticks along axes that will move with mouse cursor
     p_ml_tick = plot([0,0],[-8,-7.5],'-r','LineWidth',3);
     p_ap_tick = plot([-5.5,-5],[0,0],'-r','LineWidth',3);
-    p_ml_tick.Visible='off';
-    p_ap_tick.Visible='off';
+    p_ml_tick.Visible = 'off';
+    p_ap_tick.Visible = 'off';
 
 
-    function pos_reporter(~,~)
+    function highlightAreaUnderCursor_Callback(~,~)
         % nested callback to report area under mouse cursor
         C = get (ax, 'CurrentPoint');
         X = C(1,1);
@@ -83,16 +83,17 @@ function area_highlighter(atlas_data)
 
 
         % Find brain area index
-        [~,indX]=min(abs(atlas_data.top_down_annotation.xData-X));
-        [~,indY]=min(abs(atlas_data.top_down_annotation.yData-Y));
+        [~,indX] = min(abs(atlas_data.top_down_annotation.xData-X));
+        [~,indY] = min(abs(atlas_data.top_down_annotation.yData-Y));
         t_ind = atlas_data.top_down_annotation.data(indY,indX);
         f =find([brain_areas.area_index]==t_ind);
         delete(findall(gca,'type','patch'))
+
         if isempty(f)
             area_name = '';
             fig.Pointer = 'arrow';
-            p_ml_tick.Visible='off';
-            p_ap_tick.Visible='off';
+            p_ml_tick.Visible = 'off';
+            p_ap_tick.Visible = 'off';
         else
             area_name = [', ',brain_areas(f).names{1}];
             b = brain_areas(f).boundaries_stereotax;
@@ -107,11 +108,11 @@ function area_highlighter(atlas_data)
             fig.Pointer = 'cross';
             p_ml_tick.XData = [X,X];
             p_ap_tick.YData = [Y,Y];
-            p_ml_tick.Visible='on';
-            p_ap_tick.Visible='on';
+            p_ml_tick.Visible = 'on';
+            p_ap_tick.Visible = 'on';
         end
 
         t.String = sprintf('ML=%0.2f mm, AP=%0.2f mm%s\n', X, Y, area_name);
-    end
+    end %highlightAreaUnderCursor_Callback
 
-end
+end %area_highlighter
