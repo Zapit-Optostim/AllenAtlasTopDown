@@ -42,11 +42,9 @@ function  draw_top_down_ccf(atlas_data)
     xticks(ax, -5:grid_spacing:5);
     yticks(ax, -5:grid_spacing:5);
 
-    % Draw cortical boundaries
-
     % Whole brain
-    cellfun(@(x) cellfun(@(x) plot(x(:,2),x(:,1), 'color', [0.5,0.5,0.5]),x,'uni',false), ...
-        {atlas_data.whole_brain.boundaries_stereotax},'uni', false);
+    b = atlas_data.whole_brain.boundaries_stereotax{1};
+    plot(b(:,2),b(:,1), 'color', [0.5,0.5,0.75]);
 
     % Cortical broundaries
     cellfun(@(x) cellfun(@(x) plot(x(:,2),x(:,1),'color',brain_color),x,'uni',false), ...
