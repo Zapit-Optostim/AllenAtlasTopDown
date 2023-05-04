@@ -59,7 +59,7 @@ Download/clone [npy-matlab](https://github.com/kwikteam/npy-matlab) and add to y
 Bregma has been approximated in AP by matching the Paxinos atlas slice at AP=0 to the CCF, the ML position is the midline, and the DV position is a very rough approximation from matching an MRI image (this DV coordinate shouldn't be used - all actual coordinates should be measured from the brain surface for better accuracy)
 
 The CCF is slightly stretched in the DV axis (because it's based on a single mouse with an unusually tall brain), currently estimated here as 94.3%.
-This stretch has not been teken into account in this package.
+This stretch has not been taken into account in this package.
 
 The CCF AP rotation is arbitrary with reference to the skull.
 It is estimated that this angle is 5 degrees nose-down (from https://www.biorxiv.org/content/10.1101/2022.05.09.491042v3).
