@@ -70,5 +70,8 @@ This code is derived from work done by Andy Peters in his [neuropixels_trajector
 Furthermore, Andy kindly provided an additional script that demonstrated how to elegantly get the top-down ARA view in coordinates with respect to bregma.
 Some text from this README is taken from the neuropixels_trajectory_explorer README.
 
+## More info
+[https://community.brain-map.org/t/how-to-transform-ccf-x-y-z-coordinates-into-stereotactic-coordinates/1858](https://community.brain-map.org/t/how-to-transform-ccf-x-y-z-coordinates-into-stereotactic-coordinates/1858)
+
 ## Changelog
 * 2023-01-05: Initial commit. Minor bugfixes and improvements.
