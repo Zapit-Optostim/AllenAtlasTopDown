@@ -63,7 +63,7 @@ This stretch has not been taken into account in this package.
 
 The CCF AP rotation is arbitrary with reference to the skull.
 It is estimated that this angle is 5 degrees nose-down (from https://www.biorxiv.org/content/10.1101/2022.05.09.491042v3).
-Since this will have negligable impact on the top-down view, the brain is not un-tilted.
+Since this will have negligable impact on the top-down view, the brain is not un-tilted in this implementation.
 
 ## Acknowledgements 
 This code is derived from work done by Andy Peters in his [neuropixels_trajectory_explorer](https://github.com/petersaj/neuropixels_trajectory_explorer). 
