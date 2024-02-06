@@ -48,7 +48,7 @@ t =
 ## Requirements for building the top-down view from the Allen CCF volume
 These requirements are for re-building the area borders and are not needed for running the two
 visualisation functions.
-To build the top-down view you should download the Allen CCF mouse atlas from http://data.cortexlab.net/allenCCF/. 
+To build the top-down view you should download the Allen CCF mouse atlas from https://osf.io/fv7ed/. 
 You will need the files `structure_tree_safe_2017.csv` and `annotation_volume_10um_by_index.npy`
 These files are a re-formatted version of [the original atlas](http://download.alleninstitute.org/informatics-archive/current-release/mouse_ccf/annotation/ccf_2017/), which has been [processed with this script](https://github.com/cortex-lab/allenCCF/blob/master/setup_utils.m))
 Place the files somewhere in your MATLAB path. 
